@@ -1,46 +1,53 @@
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("Hello DB user!");
 
         DBConnector user=new DBConnector();
         user.Connect();
 
-        System.out.println("wybież jedną z opcji");
-        System.out.println("1. pokaż listę zwierzat w zoo");
-        System.out.println("2. dodaj zwierze do listy");
-        System.out.println("3. modyfikuj zwierze");
-        System.out.println("4. usuń zwierzeta z listy");
+        String termination="";
+        while (!termination.equals("t")) {
 
-        int opr=getInt();
+            System.out.println("wybież jedną z opcji");
+            System.out.println("1. pokaż listę zwierzat w zoo");
+            System.out.println("2. dodaj zwierze do listy");
+            System.out.println("3. modyfikuj zwierze");
+            System.out.println("4. usuń zwierzeta z listy");
 
-
-        switch (opr){
-            case 1:
-                System.out.println(Animal.getAllAnimals(user));
-                break;
-            case 2:
-                // troche to na siłę
-                Animal animal=new Animal(null,null,null,null,null);
-                animal.createAnimal();
-                animal.save(user);
-                break;
-            case 3:
-
-                break;
-            case 4:
-                Animal.deleteAllAnimals(user);
+            int opr = getInt();
 
 
+            switch (opr) {
+                case 1:
+                    System.out.println(Animal.getAllAnimals(user));
+                    //Animal.getAllanimals(user).forEach((n) -> System.out.println(n));
+                    break;
+                case 2:
+                    // troche to na siłę
+                    Animal animal = new Animal(null, null, null, null, null);
+                    animal.createAnimal();
+                    animal.save(user);
+                    break;
+                case 3:
+                    Animal.modify(user);
 
+                    break;
+                case 4:
+                    Animal.deleteAllAnimals(user);
+
+            }
+            System.out.println("czy zakończyć działanie programu [t/n]");
+            termination=getString();
 
         }
 
-        user.show("SELECT * FROM animals");
+
 
         Map<Country,String> popularReligion=new HashMap<>();
 
