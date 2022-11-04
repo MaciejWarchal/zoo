@@ -99,8 +99,8 @@ public class Animal {
     }
 
     public static Animal getAnimal(DBConnector dbConnector,int animalID) throws SQLException {
+        Animal animal1=null;
 
-        Animal animal=null;
 
         String sql = "select * from animals where id=" + animalID + ";";
         ResultSet resultSet = dbConnector.getResults(sql);
@@ -146,15 +146,16 @@ public class Animal {
                         break;
 
                 }
-                Animal animal1 = new Animal(id, species, name, foodType2, country1);
-                animal = animal1;
+                Animal animal = new Animal(id, species, name, foodType2, country1);
+                animal1=animal;
+
 
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
-        }return animal;
+        }return animal1;
     }
 
 
